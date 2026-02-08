@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 
 #define SIZE 6
@@ -6,7 +5,8 @@
 #define XVAL  1
 #define OVAL  2
 
-int grid[SIZE][SIZE] = {
+//LEVELS
+int level1[SIZE][SIZE] = {
     {1,1,0,2,0,0},
     {0,0,2,0,0,1},
     {0,1,1,0,2,0},
@@ -15,28 +15,56 @@ int grid[SIZE][SIZE] = {
     {2,0,1,0,1,0}
 };
 
+int level2[SIZE][SIZE] = {
+    {1,2,0,0,0,0},
+    {2,0,2,0,0,1},
+    {0,1,1,0,2,0},
+    {0,0,0,0,0,0},
+    {1,0,0,0,2,1},
+    {2,0,1,0,1,0}
+};
+
+int level3[SIZE][SIZE] = {
+    {2,1,0,1,0,0},
+    {0,0,0,0,0,1},
+    {0,1,1,0,0,0},
+    {0,0,2,2,0,0},
+    {2,0,0,0,0,1},
+    {2,0,0,1,0,0}
+};
+
+int grid[SIZE][SIZE];
+
+void loadLevel(int src[SIZE][SIZE]) {
+    int i, j;
+    for (i = 0; i < SIZE; i++)
+        for (j = 0; j < SIZE; j++)
+            grid[i][j] = src[i][j];
+}
+
+// defining rows
 void printLine() {
     int i;
     printf("  ");
-    for (i = 1; i <= SIZE; i++)
+    for (i = 0; i < SIZE; i++)
         printf("+---");
     printf("+\n");
 }
 
-
+// displaying grid
 void displayGrid() {
     int i, j;
 
-    printf("\n   ");
-    for (j = 1; j <= SIZE; j++)
+    printf("\n    ");
+    for (j = 0; j < SIZE; j++)
         printf(" %d  ", j);
     printf("\n");
 
-    for (i = 1; i <= SIZE; i++) {
+    for (i = 0; i < SIZE; i++) {
         printLine();
         printf("%d ", i);
 
-        for (j = 1; j <= SIZE; j++) {
+        for (j = 0; j < SIZE; j++) {
             printf("| ");
             if (grid[i][j] == XVAL)
                 printf("X ");
@@ -50,7 +78,7 @@ void displayGrid() {
     printLine();
 }
 
-
+// checking conditions as per rules
 int checkTriple() {
     int i, j;
 
@@ -96,7 +124,7 @@ int checkBalance() {
     return 1;
 }
 
-
+// win conditions
 int isComplete() {
     int i, j;
     for (i = 0; i < SIZE; i++)
@@ -106,14 +134,40 @@ int isComplete() {
     return 1;
 }
 
+//main
 int main() {
+    int choice;
     int row, col;
-    char choice;
+    char symbol;
 
-    printf("=== SIMPLE TANGO GAME (6x6) ===\n");
-    printf("Rules:\n");
-    printf("1. No more than two same symbols together\n");
-    printf("2. Each row and column must have equal X and O\n");
+    printf("=== TANGO GAME (6x6) ===\n");
+    printf("Select Level:\n");
+    printf("1. EASY\n");
+    printf("2. MEDIUM\n");
+    printf("3. HARD\n");
+    printf("Enter choice: ");
+    scanf("%d", &choice);
+
+    switch (choice) {
+        case 1:
+            printf("Level 1: EASY\n");
+            loadLevel(level1);
+            break;
+
+        case 2:
+            printf("Level 2: MEDIUM\n");
+            loadLevel(level2);
+            break;
+
+        case 3:
+            printf("Level 3: HARD\n");
+            loadLevel(level3);
+            break;
+
+        default:
+            printf("Invalid choice! Defaulting to EASY.\n");
+            loadLevel(level1);
+    }
 
     while (1) {
         displayGrid();
@@ -132,13 +186,13 @@ int main() {
         }
 
         printf("Enter X or O (or . to clear): ");
-        scanf(" %c", &choice);
+        scanf(" %c", &symbol);
 
         int backup = grid[row][col];
 
-        if (choice == 'X' || choice == 'x')
+        if (symbol == 'X' || symbol == 'x')
             grid[row][col] = XVAL;
-        else if (choice == 'O' || choice == 'o')
+        else if (symbol == 'O' || symbol == 'o')
             grid[row][col] = OVAL;
         else
             grid[row][col] = EMPTY;
