@@ -37,8 +37,8 @@ int grid[SIZE][SIZE];
 
 void loadLevel(int src[SIZE][SIZE]) {
     int i, j;
-    for (i = 0; i < SIZE; i++)
-        for (j = 0; j < SIZE; j++)
+    for (i = 1; i <= SIZE; i++)
+        for (j = 1; j <= SIZE; j++)
             grid[i][j] = src[i][j];
 }
 
@@ -46,7 +46,7 @@ void loadLevel(int src[SIZE][SIZE]) {
 void printLine() {
     int i;
     printf("  ");
-    for (i = 0; i < SIZE; i++)
+    for (i = 1; i <= SIZE; i++)
         printf("+---");
     printf("+\n");
 }
@@ -55,16 +55,16 @@ void printLine() {
 void displayGrid() {
     int i, j;
 
-    printf("\n    ");
-    for (j = 0; j < SIZE; j++)
+    printf("\n   ");
+    for (j = 1; j <= SIZE; j++)
         printf(" %d  ", j);
     printf("\n");
 
-    for (i = 0; i < SIZE; i++) {
+    for (i = 1; i <= SIZE; i++) {
         printLine();
         printf("%d ", i);
 
-        for (j = 0; j < SIZE; j++) {
+        for (j = 1; j <= SIZE; j++) {
             printf("| ");
             if (grid[i][j] == XVAL)
                 printf("X ");
