@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 
 #define SIZE 6
@@ -14,17 +15,29 @@ int grid[SIZE][SIZE] = {
     {2,0,1,0,1,0}
 };
 
+void printLine() {
+    int i;
+    printf("  ");
+    for (i = 1; i <= SIZE; i++)
+        printf("+---");
+    printf("+\n");
+}
+
 
 void displayGrid() {
     int i, j;
+
     printf("\n   ");
-    for (j = 0; j < SIZE; j++)
-        printf("%d ", j);
+    for (j = 1; j <= SIZE; j++)
+        printf(" %d  ", j);
     printf("\n");
 
-    for (i = 0; i < SIZE; i++) {
-        printf("%d  ", i);
-        for (j = 0; j < SIZE; j++) {
+    for (i = 1; i <= SIZE; i++) {
+        printLine();
+        printf("%d ", i);
+
+        for (j = 1; j <= SIZE; j++) {
+            printf("| ");
             if (grid[i][j] == XVAL)
                 printf("X ");
             else if (grid[i][j] == OVAL)
@@ -32,8 +45,9 @@ void displayGrid() {
             else
                 printf(". ");
         }
-        printf("\n");
+        printf("|\n");
     }
+    printLine();
 }
 
 
@@ -98,18 +112,18 @@ int main() {
 
     printf("=== SIMPLE TANGO GAME (6x6) ===\n");
     printf("Rules:\n");
-    printf("1. No more than 2 same symbols together\n");
-    printf("2. Each row and column must have equal X and O\n\n");
+    printf("1. No more than two same symbols together\n");
+    printf("2. Each row and column must have equal X and O\n");
 
     while (1) {
         displayGrid();
 
         if (isComplete() && checkTriple() && checkBalance()) {
-            printf("\nCONGRATULATIONS! YOU SOLVED THE PUZZLE\n");
+            printf("\n🎉 CONGRATULATIONS! YOU SOLVED THE PUZZLE 🎉\n");
             break;
         }
 
-        printf("\nEnter row (0-5) and column (0-5): ");
+        printf("\nEnter row and column (0-5): ");
         scanf("%d %d", &row, &col);
 
         if (row < 0 || row >= SIZE || col < 0 || col >= SIZE) {
