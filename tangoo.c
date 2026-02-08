@@ -173,11 +173,11 @@ int main() {
         displayGrid();
 
         if (isComplete() && checkTriple() && checkBalance()) {
-            printf("\n🎉 CONGRATULATIONS! YOU SOLVED THE PUZZLE 🎉\n");
+            printf("\nCONGRATULATIONS! YOU SOLVED THE PUZZLE\n");
             break;
         }
 
-        printf("\nEnter row and column (0-5): ");
+        printf("\nEnter row and column (1-6): ");
         scanf("%d %d", &row, &col);
 
         if (row < 0 || row >= SIZE || col < 0 || col >= SIZE) {
@@ -205,3 +205,4 @@ int main() {
 
     return 0;
 }
+
